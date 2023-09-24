@@ -161,10 +161,10 @@ def create_window_always_on_top():
     # After main loop
     if clicked:
         coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
-        select_region_and_capture(coords)
+        return select_region_and_capture(coords)
 
-def run():
-    create_window_always_on_top()
+def run() -> Optional[Tuple[Tuple[int, int, int, int], Image.Image]]:
+    return create_window_always_on_top()
 
 def crop(save_screenshot: bool = True) -> Tuple[Tuple[int, int, int, int], Image.Image]:
     coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
