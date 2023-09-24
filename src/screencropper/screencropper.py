@@ -9,6 +9,7 @@ from tkinter import ttk
 
 def select_region_and_capture(coords: dict) -> Image.Image:
     """Display a window to select the region, and capture the selected region."""
+
     screenshot = pyautogui.screenshot()
     img = np.array(screenshot)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
@@ -68,7 +69,8 @@ def select_region_and_capture(coords: dict) -> Image.Image:
                 break
 
     cv2.destroyAllWindows()
-    region = get_roi_coordinates(coords)
+    region = get_region_coordinates(coords)
+    print(region)
 
     # Use pyautogui.screenshot to capture the region based on the given coordinates
     screenshot_region = pyautogui.screenshot(region=region, imageFilename="screenshot.png")
@@ -102,7 +104,7 @@ def draw_rectangle(event, x, y, flags, param) -> None:
         coords["x_end"], coords["y_end"] = x, y
         coords["selected_region"] = True
 
-def get_roi_coordinates(coords: dict) -> Tuple[int, int, int, int]:
+def get_region_coordinates(coords: dict) -> Tuple[int, int, int, int]:
     """Get the coordinates of the region of interest (ROI)"""
     # Ensure that the coordinates are ordered correctly
     x_start, x_end = min(coords["ix"], coords["x_end"]), max(
@@ -125,6 +127,7 @@ def create_window_always_on_top():
     def on_click():
         global clicked
         clicked = True
+        print(win.winfo_x(), win.winfo_y())
         # Make window invisible/destroy and fast, before taking a screenshot
         win.attributes('-alpha',0.0) # doesn't show animation like destroy() or withdraw()
         win.destroy()
@@ -157,5 +160,8 @@ def create_window_always_on_top():
         coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
         select_region_and_capture(coords)
 
-if __name__ == "__main__":
+def run():
     create_window_always_on_top()
+
+if __name__ == "__main__":
+    run()
