@@ -3,3 +3,5 @@ build/
 dist/
 screencropper.egg-info/
 *venv*/
+*.pyc
+__pycache__/

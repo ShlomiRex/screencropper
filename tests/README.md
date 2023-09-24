@@ -9,7 +9,7 @@ source venv/bin/activate
 ```
 
 Or on windows:
-```powershell
+```bash
 cd tests
 python -m venv venv
 venv\Scripts\activate

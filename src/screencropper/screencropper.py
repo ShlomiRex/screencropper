@@ -1,5 +1,5 @@
 import sys
-from typing import Tuple
+from typing import Optional, Tuple
 from PIL import Image
 import cv2
 import numpy as np
@@ -7,7 +7,7 @@ import pyautogui
 import tkinter as tk
 from tkinter import ttk
 
-def select_region_and_capture(coords: dict) -> Image.Image:
+def select_region_and_capture(coords: dict, take_screenshot: bool = True) -> tuple[tuple[int, int, int, int], Image.Image]:
     """Display a window to select the region, and capture the selected region."""
 
     screenshot = pyautogui.screenshot()
@@ -70,19 +70,21 @@ def select_region_and_capture(coords: dict) -> Image.Image:
 
     cv2.destroyAllWindows()
     region = get_region_coordinates(coords)
-    print(region)
+    #print(region)
 
-    # Use pyautogui.screenshot to capture the region based on the given coordinates
-    screenshot_region = pyautogui.screenshot(region=region, imageFilename="screenshot.png")
+    screenshot_region = None
+    if take_screenshot:
+        # Use pyautogui.screenshot to capture the region based on the given coordinates
+        screenshot_region = pyautogui.screenshot(region=region, imageFilename="screenshot.png")
 
-    # Convert the region screenshot to a PIL Image object
-    screenshot_region = Image.frombytes(
-        "RGB",
-        (screenshot_region.width, screenshot_region.height),
-        screenshot_region.tobytes(),
-    )
+        # Convert the region screenshot to a PIL Image object
+        screenshot_region = Image.frombytes(
+            "RGB",
+            (screenshot_region.width, screenshot_region.height),
+            screenshot_region.tobytes(),
+        )
 
-    return screenshot_region
+    return (region, screenshot_region)
 
 def draw_rectangle(event, x, y, flags, param) -> None:
     """Draw a rectangle on the image when the mouse is clicked and dragged"""
@@ -127,7 +129,7 @@ def create_window_always_on_top():
     def on_click():
         global clicked
         clicked = True
-        print(win.winfo_x(), win.winfo_y())
+        #print(win.winfo_x(), win.winfo_y())
         # Make window invisible/destroy and fast, before taking a screenshot
         win.attributes('-alpha',0.0) # doesn't show animation like destroy() or withdraw()
         win.destroy()
@@ -162,6 +164,10 @@ def create_window_always_on_top():
 
 def run():
     create_window_always_on_top()
+
+def crop(take_screenshot: bool = True) -> Tuple[Tuple[int, int, int, int], Optional[Image.Image]]:
+    coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
+    return select_region_and_capture(coords, take_screenshot)
 
 if __name__ == "__main__":
     run()
