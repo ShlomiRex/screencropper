@@ -2,6 +2,8 @@
 
 A Python library that allows to select a region of screen and either take screenshot as an application or use the coordinates in their program as library.
 
+![screencropper](README-assets/animation.gif)
+
 ## Example usage
 
 ```python
