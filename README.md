@@ -2,16 +2,24 @@
 
 A Python library that allows to select a region of screen and either take screenshot as an application or use the coordinates in their program as library.
 
-## Usage
+## Example usage
 
 ```python
 from screencropper import crop
 
-# Take screenshot of selected region
-region, image = crop(take_screenshot=True)
+# Take screenshot of selected region and save it to file `screenshot.png`
+region, image = crop()
+print(region, image) # ((269, 34, 1259, 681), <PIL.Image.Image image mode=RGB size=1259x681 at 0x16401357790>)
 
-print(region)
-print(image)
+# Don't save screenshot to file
+region, image = crop(save_screenshot=False)
+print(region, image) # ((74, 741, 115, 57), <PIL.Image.Image image mode=RGB size=115x57 at 0x22D2E6D7810>)
+```
+
+You can also just run from source as executable:
+
+```bash
+python ./src/screencropper/screencropper.py
 ```
 
 ## Build & install package locally

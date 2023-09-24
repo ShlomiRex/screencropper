@@ -7,7 +7,7 @@ import pyautogui
 import tkinter as tk
 from tkinter import ttk
 
-def select_region_and_capture(coords: dict, take_screenshot: bool = True) -> tuple[tuple[int, int, int, int], Image.Image]:
+def select_region_and_capture(coords: dict, save_screenshot: bool = True) -> tuple[tuple[int, int, int, int], Image.Image]:
     """Display a window to select the region, and capture the selected region."""
 
     screenshot = pyautogui.screenshot()
@@ -72,17 +72,18 @@ def select_region_and_capture(coords: dict, take_screenshot: bool = True) -> tup
     region = get_region_coordinates(coords)
     #print(region)
 
-    screenshot_region = None
-    if take_screenshot:
-        # Use pyautogui.screenshot to capture the region based on the given coordinates
-        screenshot_region = pyautogui.screenshot(region=region, imageFilename="screenshot.png")
+    # Use pyautogui.screenshot to capture the region based on the given coordinates
+    screenshot_region = pyautogui.screenshot(region=region)
 
-        # Convert the region screenshot to a PIL Image object
-        screenshot_region = Image.frombytes(
-            "RGB",
-            (screenshot_region.width, screenshot_region.height),
-            screenshot_region.tobytes(),
-        )
+    # Convert the region screenshot to a PIL Image object
+    screenshot_region = Image.frombytes(
+        "RGB",
+        (screenshot_region.width, screenshot_region.height),
+        screenshot_region.tobytes(),
+    )
+    
+    if save_screenshot:
+        screenshot_region.save("screenshot.png")
 
     return (region, screenshot_region)
 
@@ -165,9 +166,9 @@ def create_window_always_on_top():
 def run():
     create_window_always_on_top()
 
-def crop(take_screenshot: bool = True) -> Tuple[Tuple[int, int, int, int], Optional[Image.Image]]:
+def crop(save_screenshot: bool = True) -> Tuple[Tuple[int, int, int, int], Image.Image]:
     coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
-    return select_region_and_capture(coords, take_screenshot)
+    return select_region_and_capture(coords, save_screenshot)
 
 if __name__ == "__main__":
     run()

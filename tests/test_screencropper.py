@@ -3,7 +3,7 @@ import unittest
 
 class TestScreencropper(unittest.TestCase):
     def test_run(self):
-        res = crop(take_screenshot=False)
+        res = crop(save_screenshot=False)
         print(res)
 
         region, image = res
