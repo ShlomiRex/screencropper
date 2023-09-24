@@ -37,6 +37,10 @@ Create source distribution: `python setup.py sdist`
 
 And finally install locally: `pip install .`
 
+### Another way
+
+From the project root: `py -m build`
+
 ## Run tests
 
 Run all tests: `python -m unittest discover`

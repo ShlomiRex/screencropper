@@ -1,8 +1,4 @@
 from setuptools import setup, find_packages
-import os
-
-with open('requirements.txt') as f:
-    required = f.read().splitlines()
 
 setup(
     name='screencropper',
@@ -15,5 +11,5 @@ setup(
     package_dir={"": "src"},
     keywords=["python", "screen", "capture", "region", "crop"],
     license="Unlicense",
-    install_requires=required,
+    install_requires=["Pillow", "opencv-python", "pyautogui"],
 )
