@@ -15,8 +15,12 @@ print(region, image) # ((269, 34, 1259, 681), <PIL.Image.Image image mode=RGB si
 region, image = crop(save_screenshot=False)
 print(region, image) # ((74, 741, 115, 57), <PIL.Image.Image image mode=RGB size=115x57 at 0x22D2E6D7810>)
 
-# Create window with button, when clicked, it will take screenshot of selected region and save it to file `screenshot.png`
+# Create window with button, when clicked, it crop the screen, save the image, and return region and the image
 region, image = run()
+
+# Create window with button, when clicked, it crop the screen and return the region and image
+region, image = run(save_screenshot=False)
+```
 ```
 
 You can also just run from source as executable:

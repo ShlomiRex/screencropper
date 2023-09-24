@@ -119,7 +119,7 @@ def get_region_coordinates(coords: dict) -> Tuple[int, int, int, int]:
 
     return x_start, y_start, x_end - x_start, y_end - y_start
 
-def create_window_always_on_top():
+def create_window_always_on_top(save_screenshot: bool = True):
     global clicked
     clicked = False # When clicked on the button
 
@@ -161,10 +161,10 @@ def create_window_always_on_top():
     # After main loop
     if clicked:
         coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
-        return select_region_and_capture(coords)
+        return select_region_and_capture(coords, save_screenshot)
 
-def run() -> Optional[Tuple[Tuple[int, int, int, int], Image.Image]]:
-    return create_window_always_on_top()
+def run(save_screenshot: bool = True) -> Optional[Tuple[Tuple[int, int, int, int], Image.Image]]:
+    return create_window_always_on_top(save_screenshot)
 
 def crop(save_screenshot: bool = True) -> Tuple[Tuple[int, int, int, int], Image.Image]:
     coords = {"ix": -1, "iy": -1, "x_end": -1, "y_end": -1, "drawing": False, "selected_region": False}
