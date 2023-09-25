@@ -6,18 +6,21 @@ import numpy as np
 import pyautogui
 import tkinter as tk
 from tkinter import ttk
+from sys import platform
 
 def select_region_and_capture(coords: dict, save_screenshot: bool = True) -> tuple[tuple[int, int, int, int], Image.Image]:
     """Display a window to select the region, and capture the selected region."""
 
     screenshot = pyautogui.screenshot()
+    screenshot.save("test.png")
     img = np.array(screenshot)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     # Create a window to select the region in fullscreen mode
-    cv2.namedWindow("Select Region", cv2.WINDOW_NORMAL)
-    cv2.setWindowProperty(
-        "Select Region", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    cv2.namedWindow("Select Region", cv2.WND_PROP_FULLSCREEN)
+
+    if platform != "darwin":
+        cv2.setWindowProperty("Select Region", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     cv2.setMouseCallback("Select Region", draw_rectangle, param=coords)
 
     while True:
@@ -59,7 +62,7 @@ def select_region_and_capture(coords: dict, save_screenshot: bool = True) -> tup
         if key == 27:  # Press 'Esc' to exit the program
             cv2.destroyAllWindows()
             sys.exit(0)
-        elif key == 13 or coords["selected_region"]:  # Press 'Enter' to confirm the selection
+        elif coords["selected_region"]:
             if (
                 coords["ix"] != -1
                 and coords["iy"] != -1
@@ -126,6 +129,8 @@ def create_window_always_on_top(save_screenshot: bool = True):
     win = tk.Tk()
     win.geometry("250x100")
     win.title("Screen Cropper")
+
+    win.bind("<Escape>", lambda e: win.destroy())
 
     def on_click():
         global clicked

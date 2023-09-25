@@ -11,7 +11,7 @@ setup(
     package_dir={"": "src"},
     keywords=["python", "screen", "capture", "region", "crop"],
     license="Unlicense",
-    install_requires=["Pillow", "opencv-python", "pyautogui"],
+    install_requires=["Pillow", "opencv-python", "pyautogui", "tk"],
     entry_points={
         "console_scripts": [
             "screencropper = screencropper:run",

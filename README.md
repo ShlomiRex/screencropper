@@ -40,6 +40,12 @@ From the project root: `py -m build`
 
 (you need to `pip install build` first)
 
+### macOS
+
+tkinter: If you get: `ModuleNotFoundError: No module named '_tkinter'` then install `brew install python-tk`
+
+If you see simple desktop screenshot, then you need to permit the terminal/vscode/wherever you run the command to record screen.
+
 ## Run tests
 
 Run all tests: `python -m unittest discover`
