@@ -23,13 +23,8 @@ region, image = run()
 # Create window with button, when clicked, it crop the screen and return the region and image
 region, image = run(save_screenshot=False)
 ```
-```
 
-You can also just run from source as executable:
-
-```bash
-python ./src/screencropper/screencropper.py
-```
+You can also just run from source as executable application: `python -m screencropper`
 
 ## Build & install package locally
 
@@ -42,6 +37,8 @@ And finally install locally: `pip install .`
 ### Another way
 
 From the project root: `py -m build`
+
+(you need to `pip install build` first)
 
 ## Run tests
 

@@ -12,4 +12,9 @@ setup(
     keywords=["python", "screen", "capture", "region", "crop"],
     license="Unlicense",
     install_requires=["Pillow", "opencv-python", "pyautogui"],
+    entry_points={
+        "console_scripts": [
+            "screencropper = screencropper:run",
+        ]
+    },
 )
